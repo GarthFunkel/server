@@ -1,0 +1,40 @@
+re='^[0-9]{4}$'
+
+PORT=8000
+
+if [[ -z $1 ]]
+then
+    echo "Missing Argument (PORT), run on 8000 by default"
+elif [[ $1 =~ $re ]]
+then
+    PORT=$1
+else
+    echo "Invalid Argument (PORT), run on 8000 by default"
+fi
+
+if [[ -e ./app/console ]]
+then
+    `php56 app/console server:run 127.0.0.1:$PORT -v`
+elif [[ -e ./bin/console ]]
+then
+    `php bin/console server:run 127.0.0.1:$PORT -v`
+else
+    echo "Not in a symfony project root, do you want to launch a php server ? [y/n]"
+    read answer
+    
+    case $answer in
+        'y')
+            echo 'launch php server'
+            `php -S 127.0.0.1:$PORT`
+            ;;
+        'n')
+            echo 'exit'
+            exit
+            ;;
+        *)
+            echo 'Wrong answer, do you want to launch a php server ? [y/n]'
+            read answer
+    esac
+fi
+
+exit
