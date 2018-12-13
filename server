@@ -14,10 +14,10 @@ fi
 
 if [[ -e ./app/console ]]
 then
-    `php56 app/console server:run 127.0.0.1:$PORT -v`
+    `php56 app/console --ansi server:run 127.0.0.1:$PORT -v`
 elif [[ -e ./bin/console ]]
 then
-    `php bin/console server:run 127.0.0.1:$PORT -v`
+    `php bin/console --ansi server:run 127.0.0.1:$PORT -v`
 else
     echo "Not in a symfony project root, do you want to launch a php server ? [y/n]"
     read answer
