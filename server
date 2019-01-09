@@ -14,7 +14,7 @@ fi
 
 if [[ -e ./app/console ]]
 then
-    `php56 app/console --ansi server:run 127.0.0.1:$PORT -v`
+    `php app/console --ansi server:run 127.0.0.1:$PORT -v`
 elif [[ -e ./bin/console ]]
 then
     `php bin/console --ansi server:run 127.0.0.1:$PORT -v`
