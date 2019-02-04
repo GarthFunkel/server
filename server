@@ -1,23 +1,32 @@
 re='^[0-9]{4}$'
 
-PORT=8000
+while getopts vp: option; do
+    case "${option}" in
+        v ) 
+            VERBOSE="vv"
+            ;;
+        p ) 
+            if [[ ${OPTARG} =~ $re ]]
+            then
+                PORT=${OPTARG}
+            else
+                echo "Invalid Argument (PORT)"
+            fi
+            ;;
+    esac
+done
 
-if [[ -z $1 ]]
-then
+if [[ !$PORT ]]; then
+    PORT=8000
     echo "Missing Argument (PORT), run on 8000 by default"
-elif [[ $1 =~ $re ]]
-then
-    PORT=$1
-else
-    echo "Invalid Argument (PORT), run on 8000 by default"
 fi
 
 if [[ -e ./app/console ]]
 then
-    `php app/console --ansi server:run 127.0.0.1:$PORT -vvv`
+    `php app/console --ansi server:run 127.0.0.1:$PORT -v$VERBOSE`
 elif [[ -e ./bin/console ]]
 then
-    `php bin/console --ansi server:run 127.0.0.1:$PORT -vvv`
+    `php bin/console --ansi server:run 127.0.0.1:$PORT -v$VERBOSE`
 else
     echo "Not in a symfony project root, do you want to launch a php server ? [y/n]"
     read answer
