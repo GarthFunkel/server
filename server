@@ -16,7 +16,7 @@ while getopts vp: option; do
     esac
 done
 
-if [[ !$PORT ]]; then
+if [[ -z $PORT ]]; then
     PORT=8000
     echo "Missing Argument (PORT), run on 8000 by default"
 fi
