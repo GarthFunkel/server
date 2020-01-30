@@ -28,7 +28,12 @@ then
     `php app/console --ansi server:run 127.0.0.1:$PORT -v$VERBOSE`
 elif [[ -e ./bin/console ]]
 then
-    `php bin/console --ansi server:run 127.0.0.1:$PORT -v$VERBOSE`
+    if [[ -x "$(command -v symfony)" ]]
+    then
+        `symfony server:start --port=$PORT`
+    else
+        `php bin/console --ansi server:run 127.0.0.1:$PORT -v$VERBOSE`
+    fi
 else
     echo "Not in a symfony project root, do you want to launch a php server ? [y/n]"
     read answer
