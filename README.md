@@ -7,7 +7,7 @@
  
 ```shell
 # example, in my .zshrc|.bashrc
-export PATH=$PATH:~/dev/server_script
+export PATH=$PATH:/home/quentinc/dev/perso/scripts/server
 ```
 
 ## Usage
